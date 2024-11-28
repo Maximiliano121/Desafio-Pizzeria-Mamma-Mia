@@ -1,15 +1,19 @@
 import Navbar from "./components/Navbar";
-import Home from "./components/Home";
 import Footer from "./components/Footer";
+import Pizza from "./components/Pizza";
+// import Home from "./components/Home";
+// import Cart from "./components/Cart";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
+    <div>
       <Navbar />
-      <Home />
+      <Pizza />
+      {/* <Home /> */}
+      {/* <Cart /> */}
       <Footer />
     </div>
   );
-}
+};
 
 export default App;
