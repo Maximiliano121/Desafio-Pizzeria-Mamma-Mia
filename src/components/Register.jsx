@@ -7,7 +7,6 @@ const Register = () => {
     confirmPassword: "",
   });
 
-  // Maneja el cambio de los campos del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -16,12 +15,10 @@ const Register = () => {
     });
   };
 
-  // Validar el formulario al hacer clic en enviar
   const handleSubmit = (e) => {
     e.preventDefault();
     const { email, password, confirmPassword } = formData;
 
-    // Validaciones
     if (!email || !password || !confirmPassword) {
       window.alert("Error: Todos los campos son obligatorios.");
       return;
@@ -37,7 +34,6 @@ const Register = () => {
       return;
     }
 
-    // Si todo está bien
     window.alert("¡Registro exitoso!");
   };
 
@@ -45,7 +41,6 @@ const Register = () => {
     <div className="container mt-5">
       <h2 className="text-center mb-4">Formulario de Registro</h2>
       <form onSubmit={handleSubmit}>
-        {/* Campo Email */}
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Email
@@ -60,7 +55,6 @@ const Register = () => {
           />
         </div>
 
-        {/* Campo Contraseña */}
         <div className="mb-3">
           <label htmlFor="password" className="form-label">
             Contraseña
@@ -75,7 +69,6 @@ const Register = () => {
           />
         </div>
 
-        {/* Campo Confirmar Contraseña */}
         <div className="mb-3">
           <label htmlFor="confirmPassword" className="form-label">
             Confirmar Contraseña
@@ -90,7 +83,6 @@ const Register = () => {
           />
         </div>
 
-        {/* Botón Enviar */}
         <button type="submit" className="btn btn-primary w-100">
           Registrar
         </button>

@@ -1,16 +1,18 @@
 import Navbar from "./components/Navbar";
 // import Home from './components/Home';
 // import Register from './components/Register';
+// import Login from './components/Login';
 import Footer from "./components/Footer";
-import Login from "./components/Login";
+import Cart from "./components/Cart";
 
 function App() {
   return (
     <div className="App">
       <Navbar />
       {/* <Home /> */}
-      {/* <Register /> */}
-      <Login />
+      {/* <RegisterPage /> */}
+      {/* <LoginPage /> */}
+      <Cart />
       <Footer />
     </div>
   );
