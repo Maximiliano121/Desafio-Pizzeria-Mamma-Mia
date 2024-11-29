@@ -42,7 +42,7 @@ const Cart = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">Detalles del pedido:</h1>
+      <h1 className="text-center mb-4">Detalles del Pedido</h1>
       <div>
         {cart.map((item, index) => (
           <div
@@ -53,12 +53,19 @@ const Cart = () => {
               <img
                 src={item.img}
                 alt={item.name}
-                style={{ width: "80px", height: "80px", marginRight: "15px" }}
+                style={{
+                  width: "80px",
+                  height: "80px",
+                  marginRight: "15px",
+                  objectFit: "cover",
+                }}
               />
-              <span>{item.name}</span>
+              <span className="fw-bold">{item.name}</span>
             </div>
 
-            <div>${(item.price * item.quantity).toLocaleString()}</div>
+            <div className="fw-bold">
+              ${(item.price * item.quantity).toLocaleString()}
+            </div>
 
             <div className="d-flex align-items-center">
               <button
