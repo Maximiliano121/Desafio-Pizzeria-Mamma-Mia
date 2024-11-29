@@ -1,12 +1,34 @@
 import React, { useState } from "react";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Lógica de envío del formulario
+    const { email, password } = formData;
+
+    if (!email || !password) {
+      window.alert("Error: Todos los campos son obligatorios.");
+      return;
+    }
+
+    if (password.length < 6) {
+      window.alert("Error: La contraseña debe tener al menos 6 caracteres.");
+      return;
+    }
+
+    window.alert("¡Inicio de sesión exitoso!");
   };
 
   return (
