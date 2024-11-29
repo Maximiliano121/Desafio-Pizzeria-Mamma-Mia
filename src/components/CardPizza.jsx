@@ -1,25 +1,26 @@
-import PropTypes from "prop-types";
+import React from "react";
 
 const CardPizza = ({ name, price, ingredients, img }) => {
   return (
-    <div className="card" style={{ width: "18rem", marginBottom: "20px" }}>
+    <div className="card mb-4 shadow-sm" style={{ width: "18rem" }}>
       <img src={img} className="card-img-top" alt={name} />
       <div className="card-body">
         <h5 className="card-title">{name}</h5>
-        <p className="card-text">Precio: ${price.toLocaleString()}</p>
-        <p className="card-text">Ingredientes: {ingredients.join(", ")}</p>
-        <button className="btn btn-primary">Ver más</button>
-        <button className="btn btn-success ml-2">Añadir</button>
+        <p className="card-text">
+          <strong>Ingredientes:</strong>
+          <ul>
+            {ingredients.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
+            ))}
+          </ul>
+        </p>
+        <p className="card-text">
+          <strong>Precio:</strong> ${price.toLocaleString()}
+        </p>
+        <button className="btn btn-primary w-100">Añadir al carrito</button>
       </div>
     </div>
   );
-};
-
-CardPizza.propTypes = {
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
-  img: PropTypes.string.isRequired,
 };
 
 export default CardPizza;

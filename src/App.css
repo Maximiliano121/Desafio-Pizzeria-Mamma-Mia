@@ -40,3 +40,32 @@
 .read-the-docs {
   color: #888;
 }
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f8f9fa;
+}
+
+h2,
+h5 {
+  font-family: "Verdana", sans-serif;
+}
+
+.card {
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+  border-bottom: 2px solid #ddd;
+}
