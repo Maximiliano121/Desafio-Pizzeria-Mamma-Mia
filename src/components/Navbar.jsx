@@ -1,42 +1,36 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
-  const total = 25000;
-  const token = false;
+  const total = 25000; // Total estático por ahora
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      {" "}
-      <a className="navbar-brand" href="#">
+      <Link className="navbar-brand" to="/">
         🍕 Pizzería Mamma Mía
-      </a>
+      </Link>
       <ul className="navbar-nav me-auto">
         <li className="nav-item">
-          <button className="btn btn-outline-light">Home</button>{" "}
+          <Link className="btn btn-outline-light" to="/">
+            Home
+          </Link>
         </li>
-        {token ? (
-          <>
-            <li className="nav-item">
-              <button className="btn btn-outline-success">🔓 Profile</button>
-            </li>
-            <li className="nav-item">
-              <button className="btn btn-outline-danger">🔒 Logout</button>
-            </li>
-          </>
-        ) : (
-          <>
-            <li className="nav-item">
-              <button className="btn btn-outline-primary">🔐 Login</button>
-            </li>
-            <li className="nav-item">
-              <button className="btn btn-outline-secondary">🔐 Register</button>
-            </li>
-          </>
-        )}
+        <li className="nav-item">
+          <Link className="btn btn-outline-primary" to="/login">
+            🔐 Login
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="btn btn-outline-secondary" to="/register">
+            🔐 Register
+          </Link>
+        </li>
       </ul>
       <ul className="navbar-nav">
         <li className="nav-item">
-          <button className="btn btn-outline-light">
+          <Link className="btn btn-outline-light" to="/cart">
             🛒 Total: ${total.toLocaleString()}
-          </button>
+          </Link>
         </li>
       </ul>
     </nav>

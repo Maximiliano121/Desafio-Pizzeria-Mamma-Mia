@@ -1,3 +1,5 @@
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 // import Home from './components/Home';
 // import Register from './components/Register';
@@ -5,9 +7,9 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Cart from "./components/Cart";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
+    <div>
       <Navbar />
       {/* <Home /> */}
       {/* <RegisterPage /> */}
@@ -16,6 +18,6 @@ function App() {
       <Footer />
     </div>
   );
-}
+};
 
 export default App;
