@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 
-const Register = () => {
+const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
   const handleChange = (e) => {
@@ -17,9 +16,9 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password, confirmPassword } = formData;
+    const { email, password } = formData;
 
-    if (!email || !password || !confirmPassword) {
+    if (!email || !password) {
       window.alert("Error: Todos los campos son obligatorios.");
       return;
     }
@@ -29,17 +28,12 @@ const Register = () => {
       return;
     }
 
-    if (password !== confirmPassword) {
-      window.alert("Error: Las contraseñas no coinciden.");
-      return;
-    }
-
-    window.alert("¡Registro exitoso!");
+    window.alert("¡Inicio de sesión exitoso!");
   };
 
   return (
     <div className="container mt-5">
-      <h2 className="text-center mb-4">Formulario de Registro</h2>
+      <h2 className="text-center mb-4">Iniciar sesión</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
@@ -47,11 +41,11 @@ const Register = () => {
           </label>
           <input
             type="email"
-            id="email"
-            name="email"
             className="form-control"
-            value={formData.email}
-            onChange={handleChange}
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </div>
 
@@ -61,34 +55,21 @@ const Register = () => {
           </label>
           <input
             type="password"
+            className="form-control"
             id="password"
-            name="password"
-            className="form-control"
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="confirmPassword" className="form-label">
-            Confirmar Contraseña
-          </label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            className="form-control"
-            value={formData.confirmPassword}
-            onChange={handleChange}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength="6"
           />
         </div>
 
         <button type="submit" className="btn btn-primary w-100">
-          Registrar
+          Iniciar sesión
         </button>
       </form>
     </div>
   );
 };
 
-export default Register;
+export default Login;

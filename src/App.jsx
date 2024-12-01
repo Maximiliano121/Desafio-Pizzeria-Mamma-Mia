@@ -1,19 +1,23 @@
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 // import Home from './components/Home';
 // import Register from './components/Register';
+// import Login from './components/Login';
 import Footer from "./components/Footer";
-import Login from "./components/Login";
+import Cart from "./components/Cart";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
+    <div>
       <Navbar />
       {/* <Home /> */}
-      {/* <Register /> */}
-      <Login />
+      {/* <RegisterPage /> */}
+      {/* <LoginPage /> */}
+      <Cart />
       <Footer />
     </div>
   );
-}
+};
 
 export default App;
