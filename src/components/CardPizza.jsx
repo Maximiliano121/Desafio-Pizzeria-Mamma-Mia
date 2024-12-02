@@ -14,7 +14,7 @@ const CardPizza = ({ name, price, ingredients, img }) => {
           ))}
         </ul>
 
-        <button className="btn btn-primary">Ver más</button>
+        <button className="btn btn-primary">Ver Más</button>
         <button className="btn btn-success ml-2">Añadir</button>
         <p className="card-text">
           <strong>Ingredientes:</strong>
