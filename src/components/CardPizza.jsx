@@ -1,25 +1,36 @@
+// src/components/CardPizza.jsx
 import React from "react";
+import { Card, Button } from "react-bootstrap";
 
 const CardPizza = ({ name, price, ingredients, img }) => {
   return (
-    <div className="card mb-4 shadow-sm" style={{ width: "18rem" }}>
-      <img src={img} className="card-img-top" alt={name} />
-      <div className="card-body">
-        <h5 className="card-title">{name}</h5>
-        <p className="card-text">
-          <strong>Precio:</strong> ${price.toLocaleString()}
-        </p>
-        <p className="card-text">
+    <Card className="mb-4 shadow-sm" style={{ width: "18rem" }}>
+      <Card.Img
+        variant="top"
+        src={img}
+        style={{ height: "200px", objectFit: "cover" }}
+      />
+      <Card.Body>
+        <Card.Title>{name}</Card.Title>
+
+        <Card.Text>
           <strong>Ingredientes:</strong>
-        </p>
+        </Card.Text>
         <ul>
           {ingredients.map((ingredient, index) => (
             <li key={index}>{ingredient}</li>
           ))}
         </ul>
-        <button className="btn btn-success w-100">Añadir al carrito</button>
-      </div>
-    </div>
+
+        <Card.Text>Precio: ${price.toLocaleString()}</Card.Text>
+        <Button variant="primary" className="w-100 mb-2">
+          Ver más
+        </Button>
+        <Button variant="success" className="w-100">
+          Añadir 🛒
+        </Button>
+      </Card.Body>
+    </Card>
   );
 };
 

@@ -1,66 +1,36 @@
+// src/components/Navbar.jsx
 import React from "react";
 import { Link } from "react-router-dom";
+import { Navbar, Nav, Container } from "react-bootstrap"; // Usando componentes de Bootstrap
 
-const Navbar = () => {
-  const total = 25000; // Total de la compra, lo podrías conectar con el carrito
-  const token = false; // Cambia esto por la lógica de autenticación
-
+const NavigationBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+    <Navbar expand="lg" bg="dark" variant="dark">
+      <Container>
+        <Navbar.Brand as={Link} to="/">
           🍕 Pizzería Mamma Mía
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav me-auto">
-            <li className="nav-item">
-              <Link className="nav-link" to="/">
-                Home
-              </Link>
-            </li>
-            {!token ? (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/register">
-                    Register
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/login">
-                    Login
-                  </Link>
-                </li>
-              </>
-            ) : (
-              <li className="nav-item">
-                <Link className="nav-link" to="/profile">
-                  Profile
-                </Link>
-              </li>
-            )}
-          </ul>
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <Link className="nav-link" to="/cart">
-                🛒 Total: ${total.toLocaleString()}
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+        </Navbar.Brand>
+        <Nav className="ml-auto">
+          <Nav.Link as={Link} to="/" className="text-white">
+            🍕 Home
+          </Nav.Link>
+          <Nav.Link as={Link} to="/profile" className="text-white">
+            🔓 Profile
+          </Nav.Link>
+          <Nav.Link as={Link} to="/login" className="text-white">
+            🔐 Login
+          </Nav.Link>
+          <Nav.Link as={Link} to="/register" className="text-white">
+            🔐 Register
+          </Nav.Link>
+          <Nav.Link as={Link} to="/cart" className="text-white">
+            🛒 Total: $
+            {/* El total se puede calcular con el contexto del carrito */}
+          </Nav.Link>
+        </Nav>
+      </Container>
+    </Navbar>
   );
 };
 
-export default Navbar;
+export default NavigationBar;

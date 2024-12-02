@@ -1,6 +1,7 @@
+// src/pages/Home.jsx
 import React, { useEffect, useState } from "react";
-import CardPizza from "../components/CardPizza";
-import Header from "../components/Header";
+import { Row, Col, Container } from "react-bootstrap"; // Usamos Bootstrap para el layout
+import CardPizza from "../components/CardPizza"; // Importamos el componente de tarjeta
 
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);
@@ -9,7 +10,7 @@ const Home = () => {
   useEffect(() => {
     const fetchPizzas = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/pizzas"); // Ajusta la URL para producción si es necesario
+        const response = await fetch("http://localhost:5000/api/pizzas");
         const data = await response.json();
         setPizzas(data);
       } catch (error) {
@@ -23,35 +24,25 @@ const Home = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="container text-center mt-5">
-        <p className="h4">Cargando pizzas...</p>
-      </div>
-    );
+    return <p>Cargando pizzas...</p>;
   }
 
   return (
-    <div>
-      <Header />
-      <h2 className="text-center mt-4">Nuestras Pizzas</h2>
-      <div className="d-flex justify-content-around flex-wrap">
-        {pizzas.length > 0 ? (
-          pizzas.map((pizza) => (
+    <Container>
+      <h2 className="mt-5 text-center">Nuestras Pizzas</h2>
+      <Row>
+        {pizzas.map((pizza) => (
+          <Col sm={12} md={6} lg={4} key={pizza.id} className="mb-4">
             <CardPizza
-              key={pizza.id}
               name={pizza.name}
               price={pizza.price}
               ingredients={pizza.ingredients}
               img={pizza.img}
             />
-          ))
-        ) : (
-          <p className="text-center">
-            No hay pizzas disponibles en este momento.
-          </p>
-        )}
-      </div>
-    </div>
+          </Col>
+        ))}
+      </Row>
+    </Container>
   );
 };
 
