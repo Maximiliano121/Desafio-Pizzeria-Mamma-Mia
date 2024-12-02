@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { Container, ListGroup, Button, Row, Col } from "react-bootstrap";
-import { CartContext } from "../context/CartContext"; // Importamos el contexto del carrito
+import { CartContext } from "../context/CartContext";
+import { UserContext } from "../context/UserContext";
 
 const Cart = () => {
-  const { cart, add, remove } = useContext(CartContext); // Obtener el carrito y las funciones de agregar y eliminar productos
+  const { cart, add, remove } = useContext(CartContext);
+  const { token } = useContext(UserContext);
 
   return (
     <Container>
@@ -16,7 +18,7 @@ const Cart = () => {
             <ListGroup.Item key={pizza.id}>
               <Row>
                 <Col>{pizza.name}</Col>
-                <Col>${pizza.price}</Col>
+                <Col>${pizza.price.toLocaleString("es-CL")}</Col>
                 <Col>
                   <Button onClick={() => add(pizza)}>+</Button>
                   <span>{pizza.qty}</span>
@@ -27,8 +29,8 @@ const Cart = () => {
           ))}
         </ListGroup>
       )}
-      <h4>Total: ${cart.total}</h4>
-      <Button variant="primary" disabled={cart.products.length === 0}>
+      <h4>Total: ${cart.total.toLocaleString("es-CL")}</h4>
+      <Button variant="primary" disabled={!token}>
         Proceder al Pago
       </Button>
     </Container>

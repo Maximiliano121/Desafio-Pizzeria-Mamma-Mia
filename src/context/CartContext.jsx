@@ -1,9 +1,7 @@
 import React, { createContext, useState, useContext } from "react";
 
-// Crear el contexto para el carrito
 export const CartContext = createContext();
 
-// Proveedor del contexto del carrito
 export const CartContextProvider = ({ children }) => {
   const [cart, setCart] = useState({
     total: 0,
@@ -63,7 +61,6 @@ export const CartContextProvider = ({ children }) => {
   );
 };
 
-// Hook para acceder al contexto del carrito
 export const useCart = () => {
   return useContext(CartContext);
 };

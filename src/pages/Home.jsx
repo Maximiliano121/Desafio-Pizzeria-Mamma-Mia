@@ -1,16 +1,17 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import { CartContext } from "../context/CartContext"; // Importar el contexto del carrito
-import CardPizza from "../components/CardPizza"; // Componente para mostrar las pizzas
+import { Container, Row, Col, Button, Card } from "react-bootstrap";
+import { CartContext } from "../context/CartContext";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  const { add } = useContext(CartContext); // Función para agregar productos al carrito
+  const { add } = useContext(CartContext);
   const [pizzas, setPizzas] = useState([]);
 
   const fetchPizzas = async () => {
     try {
       const response = await fetch("http://localhost:5000/api/pizzas");
       const data = await response.json();
+      console.log(data);
       setPizzas(data);
     } catch (error) {
       alert("No se pudo conectar con la API. Por favor, intenta de nuevo.");
@@ -27,7 +28,24 @@ const Home = () => {
       <Row>
         {pizzas.map((pizza) => (
           <Col md={4} key={pizza.id}>
-            <CardPizza pizza={pizza} onClickAdd={() => add(pizza)} />
+            <Card style={{ width: "18rem", marginBottom: "20px" }}>
+              <Card.Img variant="top" src={pizza.img} alt={pizza.name} />
+              <Card.Body>
+                <Card.Title>{pizza.name}</Card.Title>
+                <Card.Text>
+                  <strong>Ingredientes:</strong> {pizza.ingredients.join(", ")}
+                </Card.Text>
+                <Card.Text>
+                  <strong>Precio:</strong> ${pizza.price.toLocaleString()}
+                </Card.Text>
+                <Link to={`/pizza/${pizza.id}`}>
+                  <Button variant="primary">Ver más</Button>
+                </Link>
+                <Button variant="success" onClick={() => add(pizza)}>
+                  Añadir 🛒
+                </Button>
+              </Card.Body>
+            </Card>
           </Col>
         ))}
       </Row>

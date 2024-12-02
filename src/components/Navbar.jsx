@@ -5,9 +5,9 @@ import { CartContext } from "../context/CartContext";
 import { UserContext } from "../context/UserContext";
 
 const Navbar = () => {
-  const { cart } = useContext(CartContext); // Obtener el cart del contexto
-  const { token, logout } = useContext(UserContext); // Obtener el token y logout
-  const navigate = useNavigate(); // Inicializamos useNavigate
+  const { cart } = useContext(CartContext);
+  const { token, logout } = useContext(UserContext);
+  const navigate = useNavigate();
 
   return (
     <BootstrapNavbar bg="dark" variant="dark">
@@ -32,7 +32,7 @@ const Navbar = () => {
         </Nav>
         <Nav>
           <Nav.Link onClick={() => navigate("/cart")}>
-            🛒 Total: ${cart.total}
+            🛒 Total: ${cart.total.toLocaleString("es-CL")}
           </Nav.Link>
         </Nav>
       </Container>
