@@ -1,34 +1,69 @@
-// src/context/CartContext.jsx
 import React, { createContext, useState, useContext } from "react";
 
-// Crear el contexto del carrito
-export const CartContext = createContext(); // Exporta el contexto
+// Crear el contexto para el carrito
+export const CartContext = createContext();
 
 // Proveedor del contexto del carrito
-export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]); // Estado del carrito
+export const CartContextProvider = ({ children }) => {
+  const [cart, setCart] = useState({
+    total: 0,
+    products: [],
+  });
 
-  // Función para agregar un item al carrito
-  const addToCart = (pizza) => {
-    setCart((prevCart) => [...prevCart, pizza]);
+  const add = (pizza) => {
+    const productsQty = [...cart.products];
+    let total = 0;
+
+    const indexPizza = productsQty.findIndex((p) => p.id === pizza.id);
+    const pizzaFounded = indexPizza !== -1;
+
+    if (pizzaFounded) {
+      const currentPizza = productsQty[indexPizza];
+      currentPizza.qty += 1;
+    } else {
+      productsQty.push({
+        ...pizza,
+        qty: 1,
+      });
+    }
+
+    for (const product of productsQty) {
+      total += product.price * product.qty;
+    }
+
+    setCart({
+      total,
+      products: productsQty,
+    });
   };
 
-  // Función para eliminar un item del carrito
-  const removeFromCart = (pizzaId) => {
-    setCart((prevCart) => prevCart.filter((pizza) => pizza.id !== pizzaId));
-  };
+  const remove = (pizza) => {
+    const productsQty = [...cart.products];
+    let total = 0;
 
-  // Calcular el total
-  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    const indexPizza = productsQty.findIndex((p) => p.id === pizza.id);
+    const currentPizza = productsQty[indexPizza];
+
+    currentPizza.qty -= 1;
+
+    for (const product of productsQty) {
+      total += product.price * product.qty;
+    }
+
+    setCart({
+      total,
+      products: productsQty.filter((product) => product.qty > 0),
+    });
+  };
 
   return (
-    <CartContext.Provider value={{ cart, total, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart, add, remove }}>
       {children}
     </CartContext.Provider>
   );
 };
 
-// Hook personalizado para acceder al carrito
+// Hook para acceder al contexto del carrito
 export const useCart = () => {
   return useContext(CartContext);
 };
