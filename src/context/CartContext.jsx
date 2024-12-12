@@ -1,59 +1,56 @@
 import React, { createContext, useState, useContext } from "react";
 
+// Crear el contexto
 export const CartContext = createContext();
 
+// Proveedor del contexto
 export const CartContextProvider = ({ children }) => {
   const [cart, setCart] = useState({
     total: 0,
     products: [],
   });
 
+  // Función para agregar productos al carrito
   const add = (pizza) => {
-    const productsQty = [...cart.products];
-    let total = 0;
+    const updatedProducts = [...cart.products];
+    const productIndex = updatedProducts.findIndex((p) => p.id === pizza.id);
 
-    const indexPizza = productsQty.findIndex((p) => p.id === pizza.id);
-    const pizzaFounded = indexPizza !== -1;
-
-    if (pizzaFounded) {
-      const currentPizza = productsQty[indexPizza];
-      currentPizza.qty += 1;
+    if (productIndex !== -1) {
+      updatedProducts[productIndex].qty += 1;
     } else {
-      productsQty.push({
-        ...pizza,
-        qty: 1,
-      });
+      updatedProducts.push({ ...pizza, qty: 1 });
     }
 
-    for (const product of productsQty) {
-      total += product.price * product.qty;
-    }
+    const total = updatedProducts.reduce(
+      (sum, product) => sum + product.price * product.qty,
+      0
+    );
 
-    setCart({
-      total,
-      products: productsQty,
-    });
+    setCart({ total, products: updatedProducts });
   };
 
+  // Función para eliminar productos del carrito
   const remove = (pizza) => {
-    const productsQty = [...cart.products];
-    let total = 0;
+    const updatedProducts = [...cart.products];
+    const productIndex = updatedProducts.findIndex((p) => p.id === pizza.id);
 
-    const indexPizza = productsQty.findIndex((p) => p.id === pizza.id);
-    const currentPizza = productsQty[indexPizza];
+    if (productIndex !== -1) {
+      updatedProducts[productIndex].qty -= 1;
 
-    currentPizza.qty -= 1;
-
-    for (const product of productsQty) {
-      total += product.price * product.qty;
+      if (updatedProducts[productIndex].qty === 0) {
+        updatedProducts.splice(productIndex, 1);
+      }
     }
 
-    setCart({
-      total,
-      products: productsQty.filter((product) => product.qty > 0),
-    });
+    const total = updatedProducts.reduce(
+      (sum, product) => sum + product.price * product.qty,
+      0
+    );
+
+    setCart({ total, products: updatedProducts });
   };
 
+  // Exportar el contexto
   return (
     <CartContext.Provider value={{ cart, add, remove }}>
       {children}
@@ -61,6 +58,5 @@ export const CartContextProvider = ({ children }) => {
   );
 };
 
-export const useCart = () => {
-  return useContext(CartContext);
-};
+// Hook para usar el contexto del carrito
+export const useCart = () => useContext(CartContext);

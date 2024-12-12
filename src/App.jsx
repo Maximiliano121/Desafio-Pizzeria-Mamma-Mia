@@ -1,54 +1,42 @@
-import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { UserContext } from "./context/UserContext";
+import { useContext } from "react";
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import Cart from "./pages/Cart";
-import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import Cart from "./pages/Cart";
+import Pizza from "./pages/Pizza";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
-import { UserContextProvider } from "./context/UserContext";
-import { CartContextProvider } from "./context/CartContext";
-import PrivateRoute from "./components/PrivateRoute";
 
 const App = () => {
+  const { token } = useContext(UserContext);
+
   return (
-    <UserContextProvider>
-      <CartContextProvider>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route
-            path="/profile"
-            element={
-              <PrivateRoute tokenRequired={true} redirectTo="/login">
-                <Profile />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <PrivateRoute tokenRequired={false} redirectTo="/">
-                <Login />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <PrivateRoute tokenRequired={false} redirectTo="/">
-                <Register />
-              </PrivateRoute>
-            }
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer />
-      </CartContextProvider>
-    </UserContextProvider>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/register"
+          element={token ? <Navigate to="/" /> : <Register />}
+        />
+        <Route
+          path="/login"
+          element={token ? <Navigate to="/" /> : <Login />}
+        />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/pizza/:id" element={<Pizza />} />
+        <Route
+          path="/profile"
+          element={token ? <Profile /> : <Navigate to="/login" />}
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Footer />
+    </>
   );
 };
 

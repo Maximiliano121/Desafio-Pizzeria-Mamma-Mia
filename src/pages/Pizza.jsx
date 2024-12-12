@@ -9,7 +9,7 @@ const Pizza = () => {
 
   const fetchPizzaDetails = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/pizzas/${id}`);
+      const response = await fetch(`http://localhost:8080/api/pizzas/${id}`);
       const data = await response.json();
       setPizza(data);
     } catch (error) {
